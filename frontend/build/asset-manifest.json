@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/around-react/static/css/main.564612ef.css",
+    "main.js": "/around-react/static/js/main.8319cc3e.js",
+    "static/js/787.1c78f32b.chunk.js": "/around-react/static/js/787.1c78f32b.chunk.js",
+    "static/media/Inter-Medium.woff?v=3.19": "/around-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff?v=3.19": "/around-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff?v=3.19": "/around-react/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2?v=3.19": "/around-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2?v=3.19": "/around-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2?v=3.19": "/around-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/around.svg": "/around-react/static/media/around.b714633333322867634c905589235cd3.svg",
+    "static/media/heart__svg.svg": "/around-react/static/media/heart__svg.a66a39691db4092a267a.svg",
+    "static/media/Close-Icon-svg.svg": "/around-react/static/media/Close-Icon-svg.e216fbfedb205f6e0b43.svg",
+    "static/media/plus__svg.svg": "/around-react/static/media/plus__svg.7a6a3e69a3c8a9e3cd22.svg",
+    "static/media/arrow__svg.svg": "/around-react/static/media/arrow__svg.3e39f7bcf24bc9a3303f.svg",
+    "index.html": "/around-react/index.html",
+    "static/media/Trash.svg": "/around-react/static/media/Trash.c4956c32989e66228de8d03a901d4be3.svg",
+    "static/media/black-heart.svg": "/around-react/static/media/black-heart.226461bd64622361ffb2.svg",
+    "main.564612ef.css.map": "/around-react/static/css/main.564612ef.css.map",
+    "main.8319cc3e.js.map": "/around-react/static/js/main.8319cc3e.js.map",
+    "787.1c78f32b.chunk.js.map": "/around-react/static/js/787.1c78f32b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.564612ef.css",
+    "static/js/main.8319cc3e.js"
+  ]
+}

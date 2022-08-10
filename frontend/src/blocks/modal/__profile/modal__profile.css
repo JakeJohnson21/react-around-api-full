@@ -1,0 +1,12 @@
+.modal__profile {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 24px;
+}
+@media screen and (max-width: 480px) {
+  .modal__profile {
+    font-size: 18px;
+  }
+}
