@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require("celebrate");
-const validator = require("express");
+const validator = require("validator");
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
@@ -12,7 +12,7 @@ const validateUserBody = celebrate({
       "string.max": "The maximum length of the name field is 30",
     }),
     avatar: Joi.string()
-      .custom(validator.isUrl())
+      .custom((value) => validator.isUrl(value))
       .message("The avatar field must be a valid URL"),
     email: Joi.string().required().messages({
       "string.empty": `The "email" field must be filled in`,
@@ -32,7 +32,7 @@ const validateCardBody = celebrate({
     }),
     link: Joi.string()
       .required()
-      .custom(validator.isUrl())
+      .custom((value) => validator.isUrl(value))
       .message("the link field must have a valid URL")
       .messages({
         "string-empty": "The link field must be filled in",
@@ -57,7 +57,7 @@ const validateAuthentication = celebrate({
 
 const validateAvatar = celebrate({
   body: {
-    url: Joi.string().pattern(urlRegEx),
+    url: Joi.string().custom((value) => validator.isUrl(value)),
   },
 });
 
