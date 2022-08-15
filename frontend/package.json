@@ -2,7 +2,7 @@
   "name": "around-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://JakeJohnson21.github.io/around-react",
+  "homepage": "https://jake21.students.nomoredomainssbs.ru",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-server": "scp -r ./build/* jakejohnson21@aroundjake.students.nomoredomainssbs.ru:/home/jakejohnson21/around-frontend"
+    "deploy-server": "scp -r ./build/* jakejohnson21@jake21.students.nomoredomainssbs.ru:/~/react-around-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [
