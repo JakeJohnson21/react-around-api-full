@@ -14,10 +14,10 @@ const NotFoundError = require("./errors/not-found-error");
 
 const { PORT = 3000 } = process.env;
 const app = express();
-//______________________________________________
+// ______________________________________________
 app.use(requestLogger);
 
-//mongoose.connect();
+mongoose.connect("mongodb://34.134.215.158");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressRateLimit());

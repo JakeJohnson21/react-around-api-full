@@ -1,5 +1,3 @@
-const ForbiddenError = require("./forbidden-error");
-
 class UnauthorizedError extends Error {
   constructor(message) {
     super(message);

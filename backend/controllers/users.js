@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
-const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+
 const {
-  NotFoundError, //404
-  BadRequestError, //400
-  ConflictError, //409
-  ForbiddenError, //403
+  NotFoundError, // 404
+  BadRequestError, // 400
+  ConflictError, // 409
+
   UnauthorizedError, // 401
 } = require("../errors/errors");
 require("dotenv").config();
@@ -23,11 +24,11 @@ const getUsersById = (id, res, next) =>
     .then((user) => res.status(200).send({ data: user }))
     .catch(next);
 
-//GET /users/:userId
+// GET /users/:userId
 const getCurrentUser = (req, res, next) => {
   getUsersById(req.user._id, res, next);
 };
-//GET /users/me
+// GET /users/me
 const getUser = (req, res, next) => {
   getUsersById(req.params._id, res, next);
 };
@@ -44,7 +45,7 @@ const login = (req, res) => {
     .catch(() => new UnauthorizedError("Incorrect email or password"));
 };
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
   User.findOne({ email })
     .then((user) => {
@@ -56,16 +57,18 @@ const createUser = (req, res) => {
       return bcrypt.hash(password, 10);
     })
     .then((hash) => User.create({ name, about, avatar, email, password: hash }))
-    .then((user) => res.status(201).send({ data: user }))
+    .then((data) => res.status(201).send({ data }))
     .catch((err) => {
       if (err.name === "ValidationError") {
-        res.status(ValidationErrorStatus).send({
-          message: `${Object.values(err.errors)
-            .map((error) => error.message)
-            .join(", ")}`,
-        });
+        next(
+          new BadRequestError(
+            `${Object.values(err.errors)
+              .map((error) => error.message)
+              .join(", ")}`
+          )
+        );
       } else {
-        res.status(ServerErrorStatus).send({ message: "An error occured" });
+        next(err);
       }
     });
 };
@@ -81,34 +84,16 @@ const updateUser = (req, res, next) => {
     .then((user) => res.send({ data: user }))
     .catch(next);
 };
-const updateAvatar = (req, res) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
     { new: true, runValidators: true }
   )
-    .orFail(() => {
-      const error = new Error(`No user found with requested id`);
-      error.statusCode = 404;
-      throw error;
-    })
+    .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => res.status(201).send({ data: user }))
-    .catch((err) => {
-      if (err.name === "CastError") {
-        res
-          .status(CastErrorStatus)
-          .send({ message: "The data you have entered is invalid" });
-      } else if (err.name === "ValidationError") {
-        res
-          .status(ValidationErrorStatus)
-          .send({ message: "The entered data is invalid" });
-      } else if (err.statusCode === 404) {
-        res.status(NotFoundErrorStatus).send({ message: "not found" });
-      } else {
-        res.status(ServerErrorStatus).send({ message: "An error occured" });
-      }
-    });
+    .catch(next);
 };
 
 module.exports = {

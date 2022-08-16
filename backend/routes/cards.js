@@ -11,7 +11,6 @@ const {
   likeCard,
   unlikeCard,
 } = require("../controllers/cards");
-const { validate } = require("../models/card");
 
 router.get("/cards", getCards);
 router.get("/cards/:_id", validateAuthentication, getCardById);
