@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const cors = require("cors");
+// const cors = require("cors");
 const expressRateLimit = require("express-rate-limit");
 const errorHandler = require("./middlewares/error-handler");
 const authRouter = require("./routes/auth");
@@ -20,12 +20,8 @@ app.use(helmet());
 // ______________________________________________
 app.use(requestLogger);
 
-mongoose.connect(mongoServerAddress, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
-app.use(cors());
+mongoose.connect(mongoServerAddress);
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressRateLimit());
