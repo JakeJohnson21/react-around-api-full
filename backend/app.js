@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 require("dotenv").config();
 const mongoose = require("mongoose");
-// const cors = require("cors");
+const cors = require("cors");
 const expressRateLimit = require("express-rate-limit");
 const errorHandler = require("./middlewares/error-handler");
 const authRouter = require("./routes/auth");
@@ -21,7 +21,7 @@ app.use(helmet());
 app.use(requestLogger);
 
 mongoose.connect(mongoServerAddress);
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressRateLimit());
@@ -30,7 +30,7 @@ app.get("/crash-test", () => {
     throw new Error("Server will crash now");
   }, 0);
 });
-// app.use("/", authRouter);
+app.use("/", authRouter);
 app.use("/users", userRouter);
 app.use("/cards", cardRouter);
 

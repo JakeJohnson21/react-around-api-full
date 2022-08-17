@@ -37,6 +37,8 @@
     "helmet": "^5.1.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mongod": "^2.0.0",
+    "mongodb": "^4.8.1",
     "mongoose": "^6.4.3",
     "node.js": "^0.0.1-security",
     "validator": "^13.7.0",
