@@ -13,7 +13,6 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const NotFoundError = require("./errors/not-found-error");
 const { mongoServerAddress } = require("./utils/utils");
-const { DB_ADDRESS } = require("./utils/config");
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -21,7 +20,11 @@ app.use(helmet());
 // ______________________________________________
 app.use(requestLogger);
 
-mongoose.connect(mongoServerAddress);
+mongoose.connect(mongoServerAddress, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
