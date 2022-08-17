@@ -30,22 +30,18 @@ const validateUserBody = celebrate({
   }),
 });
 
-const validateCardBody = celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30).message({
-      "string.min": "The minimum length of the name field is 2",
-      "string.max": "The maximum length of the name field is 30",
-      "string.empty": "The name field must be filled in",
-    }),
-  }),
-  link: Joi.string()
-    .required()
-    .custom(validateURL)
-    .message("the link field must have a valid URL")
-    .messages({
-      "string-empty": "The link field must be filled in",
-    }),
-});
+// const validateCardBody = celebrate({
+//   body: Joi.object().keys({
+//     name: Joi.string().required().min(2).max(30).message({
+//       "string.min": "The minimum length of the name field is 2",
+//       "string.max": "The maximum length of the name field is 30",
+//       "string.empty": "The name field must be filled in",
+//     }),
+//   }),
+//   avatar: Joi.string()
+//     .custom(validateURL)
+//     .message("The avatar field must be a valid URL"),
+// });
 
 const validateAuthentication = celebrate({
   body: Joi.object().keys({
@@ -84,7 +80,7 @@ const validateProfile = celebrate({
 });
 
 module.exports = {
-  validateCardBody,
+  // validateCardBody,
   validateUserBody,
   validateAuthentication,
   validateAvatar,

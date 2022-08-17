@@ -1,6 +1,6 @@
 const { JWT_SECRET = "JWT_SECRET" } = process.env;
 
-const DB_ADDRESS = 1;
+const DB_ADDRESS = "mongodb://localhost:27017";
 
 module.exports = {
   JWT_SECRET,

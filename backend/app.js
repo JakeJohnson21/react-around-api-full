@@ -1,21 +1,22 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const helmet = require("helmet");
-const expressRateLimit = require("express-rate-limit");
-const cors = require("cors");
-const { errorLogger, requestLogger } = require("./middlewares/logger");
-
 require("dotenv").config();
-
+const mongoose = require("mongoose");
+const cors = require("cors");
+const expressRateLimit = require("express-rate-limit");
 const errorHandler = require("./middlewares/error-handler");
-const index = require("./routes/index");
-const user = require("./routes/index");
+const authRouter = require("./routes/auth");
+// const userRouter = require("./routes/users");
+// const cardRouter = require("./routes/cards");
+
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const NotFoundError = require("./errors/not-found-error");
 const { DB_ADDRESS } = require("./utils/config");
 
 const { PORT = 3000 } = process.env;
 const app = express();
+app.use(helmet());
 // ______________________________________________
 app.use(requestLogger);
 
@@ -29,12 +30,13 @@ app.get("/crash-test", () => {
     throw new Error("Server will crash now");
   }, 0);
 });
-app.use("/", index);
-app.use("/users/", user);
+// app.use("/", authRouter);
+// app.use("/users", userRouter);
+// app.use("/cards", cardRouter);
+
 app.use("*", (req, res) => {
   res.send(new NotFoundError("Requested resource not found"));
 });
-app.use(helmet());
 
 app.use(errorLogger);
 app.use(errorHandler);
