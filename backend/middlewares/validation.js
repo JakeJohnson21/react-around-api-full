@@ -38,9 +38,13 @@ const validateUserBody = celebrate({
 //       "string.empty": "The name field must be filled in",
 //     }),
 //   }),
-//   avatar: Joi.string()
+//   link: Joi.string()
+//     .required()
 //     .custom(validateURL)
-//     .message("The avatar field must be a valid URL"),
+//     .message("the link field must have a valid URL")
+//     .messages({
+//       "string-empty": "The link field must be filled in",
+//     }),
 // });
 
 const validateAuthentication = celebrate({
