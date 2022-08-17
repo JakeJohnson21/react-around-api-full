@@ -1,17 +1,14 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-
+const { JWT_SECRET } = require("../utils/config");
 const {
   NotFoundError, // 404
   BadRequestError, // 400
   ConflictError, // 409
-
   UnauthorizedError, // 401
 } = require("../errors/errors");
 require("dotenv").config();
-
-const { JWT_SECRET } = require("../utils/config");
 
 const getUsers = (req, res) =>
   User.find({})

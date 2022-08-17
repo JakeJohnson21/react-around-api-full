@@ -1,6 +1,13 @@
 const { celebrate, Joi } = require("celebrate");
 const validator = require("validator");
 
+const validateURL = (value, helpers) => {
+  if (validator.isURL(value)) {
+    return value;
+  }
+  return helpers.error("string.uri");
+};
+
 const validateUserBody = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).messages({
@@ -12,7 +19,7 @@ const validateUserBody = celebrate({
       "string.max": "The maximum length of the name field is 30",
     }),
     avatar: Joi.string()
-      .custom((value) => validator.isURL(value))
+      .custom(validateURL)
       .message("The avatar field must be a valid URL"),
     email: Joi.string().required().messages({
       "string.empty": `The "email" field must be filled in`,
@@ -30,14 +37,14 @@ const validateCardBody = celebrate({
       "string.max": "The maximum length of the name field is 30",
       "string.empty": "The name field must be filled in",
     }),
-    link: Joi.string()
-      .required()
-      .custom((value) => validator.isURL(value))
-      .message("the link field must have a valid URL")
-      .messages({
-        "string-empty": "The link field must be filled in",
-      }),
   }),
+  link: Joi.string()
+    .required()
+    .custom(validateURL)
+    .message("the link field must have a valid URL")
+    .messages({
+      "string-empty": "The link field must be filled in",
+    }),
 });
 
 const validateAuthentication = celebrate({

@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const users = require("./users");
-const cards = require("./cards");
+const userRouter = require("./users");
+const cardRouter = require("./cards");
 const auth = require("../middlewares/auth");
 const { login, createUser } = require("../controllers/users");
 const {
@@ -14,8 +14,8 @@ router.post("/signin", validateAuthentication, login);
 router.post("/signup", validateUserBody, createUser);
 
 router.use(auth);
-router.use("/", users);
-router.use("/", cards);
+router.use("/", userRouter);
+router.use("/", cardRouter);
 
 router.use((req, res, next) => {
   next(new NotFoundError("No page found for this route"));
