@@ -1,0 +1,16 @@
+.profile__pic {
+  border-radius: 50%;
+  max-width: 120px;
+  min-height: 120px;
+  margin-right: 30px;
+}
+.profile__pic:hover {
+  background-color: black;
+  opacity: 20%;
+}
+
+@media screen and (max-width: 640px) {
+  .profile__pic {
+    margin: 0 auto;
+  }
+}

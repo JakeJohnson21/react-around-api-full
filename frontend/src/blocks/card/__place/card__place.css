@@ -1,0 +1,12 @@
+.card__place {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  line-height: 29.05px;
+  font-size: 24px;
+  margin-left: 21px;
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 222px;
+}
