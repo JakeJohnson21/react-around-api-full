@@ -4,6 +4,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const expressRateLimit = require("express-rate-limit");
+const authMiddleware = require("./middlewares/auth");
 const errorHandler = require("./middlewares/error-handler");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/users");
@@ -31,6 +32,7 @@ app.get("/crash-test", () => {
   }, 0);
 });
 app.use("/", authRouter);
+app.use(authMiddleware);
 app.use("/users", userRouter);
 app.use("/cards", cardRouter);
 
