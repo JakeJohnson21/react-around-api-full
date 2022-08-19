@@ -1,4 +1,5 @@
 const UnauthorizedError = require("../errors/unauthorized-error");
+
 const { JWT_SECRET } = require("../utils/config");
 // console.log("hello1");
 const auth = (req, res, next) => {
