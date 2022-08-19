@@ -3,6 +3,7 @@ const errorHandler = (err, req, res, next) => {
   const message =
     statusCode === 500 ? "An error has occured on the server" : err.message;
   res.status(statusCode).send({ message });
+  console.error(err);
   next();
 };
 
