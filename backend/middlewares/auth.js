@@ -4,9 +4,11 @@ console.log("hello1");
 const auth = (req, res, next) => {
   console.log("hello2");
   const { authorization } = req.headers;
-  if (!authorization || !authorization.startsWith("bearer ")) {
+  console.log(authorization, authorization.startsWith("Bearer "));
+  if (!authorization || !authorization.startsWith("Bearer ")) {
     return next(new UnauthorizedError("Authorization required"));
   }
+
   const token = authorization.replace("Bearer ", "");
   let payload;
   console.log("hello3");
