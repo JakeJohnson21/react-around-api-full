@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
   try {
     // console.log(token, JWT_SECRET);
     payload = token.verify(token, JWT_SECRET);
-    console.log(payload);
+    console.log("payload: ", payload);
   } catch (err) {
     return next(new UnauthorizedError("Authorization required"));
   }
