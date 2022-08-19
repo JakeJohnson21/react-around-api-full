@@ -12,11 +12,11 @@ const {
   unlikeCard,
 } = require("../controllers/cards");
 
-router.get("/", validateAuthentication, getCards);
-router.get("/:_id", validateAuthentication, getCardById);
 router.post("/", createCard);
 router.delete("/:id", validateAuthentication, deleteCard);
 router.put("/:cardId/likes", validateAuthentication, likeCard);
 router.delete("/:cardId/likes", validateAuthentication, unlikeCard);
+router.get("/", validateAuthentication, getCards);
+router.get("/:_id", validateAuthentication, getCardById);
 
 module.exports = router;
