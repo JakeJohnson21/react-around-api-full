@@ -84,7 +84,7 @@ const validateProfile = celebrate({
 });
 
 module.exports = {
-  // validateCardBody,
+  validateCardBody,
   validateUserBody,
   validateAuthentication,
   validateAvatar,
