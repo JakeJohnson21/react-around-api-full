@@ -6,7 +6,7 @@ const JWT_SECRET = require("../utils/config");
 const auth = (req, res, next) => {
   // console.log("hello2");
   const { authorization } = req.headers;
-  console.log(authorization);
+  console.log("authorization: ", authorization);
   if (!authorization || !authorization.startsWith("Bearer ")) {
     return next(new UnauthorizedError("Authorization required"));
   }
@@ -24,7 +24,6 @@ const auth = (req, res, next) => {
   // console.log(req.user);
   req.user = payload;
   console.log("payload: ", payload);
-  console.log("req.headers ", req.headers);
 
   return next();
 };
