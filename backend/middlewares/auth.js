@@ -23,6 +23,7 @@ const auth = (req, res, next) => {
   }
   // console.log(req.user);
   req.user = payload;
+  console.log("user: ", req.user);
 
   return next();
 };
