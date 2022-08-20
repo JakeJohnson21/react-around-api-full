@@ -18,8 +18,6 @@ class Api {
       this.getProfileInfo(token),
     ]);
   }
-  //__________________________________________________________________________
-  //
   getInitialCards(token) {
     return fetch(`${this._address}/cards`, {
       headers: {
@@ -27,8 +25,7 @@ class Api {
       },
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   getProfileInfo(token) {
     return fetch(`${this._address}/users/me`, {
       headers: {
@@ -36,10 +33,9 @@ class Api {
       },
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   updateProfile({ name, about }, token) {
-    return fetch(`${this._address}/users/me`, {
+    return fetch(`${this._address}/users`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${token}`,
@@ -51,8 +47,7 @@ class Api {
       }),
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   updateProfilePicture({ avatar }, token) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: "PATCH",
@@ -65,8 +60,7 @@ class Api {
       }),
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   postNewCard({ name, link }, token) {
     return fetch(`${this._address}/cards`, {
       method: "POST",
@@ -80,8 +74,7 @@ class Api {
       }),
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   deleteCard(cardId, token) {
     return fetch(`${this._address}/cards/${cardId}`, {
       method: "DELETE",
@@ -90,11 +83,11 @@ class Api {
       },
     }).then((res) => this._getResponseData(res));
   }
-  //__________________________________________________________________________
-  //
+
   // changeLikeCardStatus(cardId, isLiked) {
   //   return isLiked ? this.addLike(cardId) : this.removeLike(cardId);
   // }
+
   changeLikeCardStatus(cardId, isLiked, token) {
     return fetch(`${this._address}/cards/${cardId}/likes`, {
       method: isLiked ? "PUT" : "DELETE",
@@ -111,16 +104,14 @@ class Api {
   //     headers: this._headers,
   //   }).then((res) => this._getResponseData(res));
   // }
-  // //__________________________________________________________________________
-  // //
+
   // removeLike(cardId) {
   //   return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
   //     method: "DELETE",
   //     headers: this._headers,
   //   }).then((res) => this._getResponseData(res));
   // }
-  //__________________________________________________________________________
-  //
+
   getUserInfo(token) {
     return fetch(`${this._address}/users`, {
       headers: {

@@ -38,24 +38,27 @@ function App() {
   const history = useHistory();
 
   function handleUpdateUser({ name, about }) {
+    const token = localStorage.getItem("jwt");
     api
-      .updateProfile({ name, about })
+      .updateProfile({ name, about }, token)
       .then(setCurrentUser)
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
 
   function handleUpdateAvatar({ avatar }) {
+    const token = localStorage.getItem("jwt");
     api
-      .updateProfilePicture({ avatar })
+      .updateProfilePicture({ avatar }, token)
       .then(setCurrentUser)
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
 
   useEffect(() => {
+    const token = localStorage.getItem("jwt");
     api
-      .getProfileInfo()
+      .getProfileInfo(token)
       .then((profile) => {
         setCurrentUser(profile);
       })
@@ -65,8 +68,9 @@ function App() {
   const [cards, setCards] = useState([]);
 
   function handleAddPlaceSubmit({ name, link }) {
+    const token = localStorage.getItem("jwt");
     api
-      .postNewCard({ name, link })
+      .postNewCard({ name, link }, token)
       .then((generatedCard) => {
         setCards([generatedCard, ...cards]);
         handleCloseAllPopups();
@@ -83,7 +87,7 @@ function App() {
         setIsInfoToolTipOpen(true);
         history.push("/signin");
       })
-      .catch((err) => {
+      .catch(() => {
         setToolTipStatus("fail");
         setIsInfoToolTipOpen(true);
       });
@@ -98,7 +102,7 @@ function App() {
         localStorage.setItem("jwt", res.token);
         history.push("/");
       })
-      .catch((err) => {
+      .catch(() => {
         setToolTipStatus("fail");
         setIsInfoToolTipOpen(true);
       });
@@ -111,8 +115,9 @@ function App() {
   }
 
   function handleCardLike(card) {
+    const token = localStorage.getItem("jwt");
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
       setCards((state) =>
         state.map((currentCard) =>
           currentCard._id === card._id ? newCard : currentCard
@@ -122,8 +127,9 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    const token = localStorage.getItem("jwt");
     api
-      .deleteCard(card._id)
+      .deleteCard(card._id, token)
       .then((deleteCard) => {
         setCards((currentCards) =>
           currentCards.filter(
@@ -135,8 +141,9 @@ function App() {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem("jwt");
     api
-      .getInitialCards()
+      .getInitialCards(token)
       .then((card) => {
         setCards(card);
       })
