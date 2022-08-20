@@ -25,7 +25,7 @@ mongoose.connect(mongoServerAddress);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(expressRateLimit());
+app.use(expressRateLimit(20));
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("Server will crash now");
