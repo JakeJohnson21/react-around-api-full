@@ -12,7 +12,7 @@ const {
   getCurrentUser,
 } = require("../controllers/users");
 
-router.patch("/me", validateProfile, updateUser);
+router.patch("/me", updateUser);
 router.get("/:_id", validateUserBody, getUser);
 router.patch("/me/avatar", validateAvatar, updateAvatar);
 router.get("/", validateUserBody, getUsers);
