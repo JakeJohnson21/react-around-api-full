@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/JakeJohnson21/around-express/issues"
   },
-  "homepage": "https://github.com/JakeJohnson21/around-express#readme",
+  "homepage": "https://api.jake21.students.nomoredomainssbs.ru/",
   "devDependencies": {
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -37,7 +37,7 @@
     "helmet": "^5.1.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.8.1",
+    "mongodb": "^4.9.0",
     "mongoose": "^6.4.3",
     "node.js": "^0.0.1-security",
     "validator": "^13.7.0",
