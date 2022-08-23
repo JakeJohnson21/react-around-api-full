@@ -17,3 +17,5 @@ router.get("/:_id", validateUserBody, getUser);
 router.patch("/me/avatar", validateAvatar, updateAvatar);
 router.get("/", validateUserBody, getUsers);
 router.get("/me", getCurrentUser);
+
+module.exports = router;
