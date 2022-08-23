@@ -15,7 +15,7 @@ const getUsers = (req, res) =>
     .then((users) => res.status(200).send({ data: users }))
     .catch((err) => res.status(500).send(err));
 
-const getUsersById = (id, res, next) =>
+const getUsersById = (_id, res, next) =>
   User.findById(id)
     .orFail(() => new NotFoundError("No user with that ID was found"))
     .then((user) => res.status(200).send({ data: user }))
@@ -34,7 +34,7 @@ const login = (req, res) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ id: user._id }, JWT_SECRET, {
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
       res.send({ data: user.toJSON(), token });
