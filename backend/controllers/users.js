@@ -91,3 +91,14 @@ const updateAvatar = (req, res, next) => {
     .then((user) => res.status(201).send({ data: user }))
     .catch(next);
 };
+
+module.exports = {
+  getUser,
+  getCurrentUser,
+  getUsers,
+  getUsersById,
+  createUser,
+  updateUser,
+  updateAvatar,
+  login,
+};
