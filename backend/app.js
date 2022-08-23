@@ -13,7 +13,7 @@ const cardRouter = require("./routes/cards");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const NotFoundError = require("./errors/not-found-error");
-const { mongoServerAddress } = require("./utils/utils");
+const mongoServerAddress = require("./utils/utils");
 
 const { PORT = 3000 } = process.env;
 const app = express();
