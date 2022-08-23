@@ -33,6 +33,7 @@ app.get("/crash-test", () => {
 });
 app.use("/", authRouter);
 app.use(authMiddleware);
+
 app.use("/users", userRouter);
 app.use("/cards", cardRouter);
 
