@@ -15,7 +15,7 @@ const getUsers = (req, res) =>
     .then((users) => res.status(200).send({ data: users }))
     .catch((err) => res.status(500).send(err));
 
-const getUsersById = (_id, res, next) =>
+const getUsersById = (id, res, next) =>
   User.findById(id)
     .orFail(() => new NotFoundError("No user with that ID was found"))
     .then((user) => res.status(200).send({ data: user }))
