@@ -39,7 +39,9 @@ const login = (req, res) => {
       });
       res.send({ data: user.toJSON(), token });
     })
-    .catch(() => new UnauthorizedError("Incorrect email or password"));
+    .catch(() => {
+      next(new UnauthorizedError("Incorrect email or password"));
+    });
 };
 const createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
