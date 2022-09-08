@@ -1,0 +1,6 @@
+.modal__is-opened {
+  visibility: visible;
+  pointer-events: all;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.3s;
+}

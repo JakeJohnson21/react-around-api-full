@@ -1,0 +1,14 @@
+.auth__redirect_button {
+  background: none;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  line-height: 16.94px;
+  font-weight: 400;
+  border: none;
+  color: #ffffff;
+}
+.auth__redirect_button:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
