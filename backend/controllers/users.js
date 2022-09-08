@@ -10,11 +10,12 @@ const {
 } = require("../errors/errors");
 require("dotenv").config();
 
-const getUsers = (req, res) => console.log(req.user._id);
-User.find({})
-  .then((users) => res.status(200).send({ data: users }))
-  .catch((err) => res.status(500).send(err));
-
+const getUsers = (req, res) => {
+  console.log(req.user._id);
+  User.find({})
+    .then((users) => res.status(200).send({ data: users }))
+    .catch((err) => res.status(500).send(err));
+};
 const getUsersById = (id, res, next) =>
   User.findById(id)
     .orFail(() => new NotFoundError("No user with that ID was found"))
