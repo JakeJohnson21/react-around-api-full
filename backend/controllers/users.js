@@ -15,14 +15,15 @@ const getUsers = (req, res) => {
     .then((users) => res.status(200).send({ data: users }))
     .catch((err) => res.status(500).send(err));
 };
-const getUsersById = (_id, res, next) =>
-  User.findById(_id)
+const getUsersById = (id, res, next) =>
+  User.findById(id)
     .orFail(() => new NotFoundError("No user with that ID was found"))
     .then((user) => res.send({ data: user }))
     .catch(next);
 
 const getUser = (req, res, next) => {
   getUsersById(req.params._id, res, next);
+  console.log("req.params.id in getUser : ", req.params._id);
 };
 
 // GET /users/:userId
