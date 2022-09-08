@@ -8,7 +8,7 @@ const {
 const NotFoundError = require("../errors/not-found-error");
 
 router.use(auth);
-router.post("/signin", validateAuthentication, login);
+router.post("/signin", login);
 router.post("/signup", validateUserBody, createUser);
 
 router.use((req, res, next) => {
