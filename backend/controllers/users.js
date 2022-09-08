@@ -11,7 +11,6 @@ const {
 require("dotenv").config();
 
 const getUsers = (req, res) => {
-  console.log("req.user.id in users/controller: ", req.user._id);
   User.find({})
     .then((users) => res.status(200).send({ data: users }))
     .catch((err) => res.status(500).send(err));
@@ -29,7 +28,7 @@ const getUser = (req, res, next) => {
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
   getUsersById(req.user._id, res, next);
-  console.log(req.user._id);
+  console.log("getCurrentUser req.user._id: ", req.user._id);
 };
 // GET /users/me
 
