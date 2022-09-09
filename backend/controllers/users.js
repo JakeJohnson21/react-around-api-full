@@ -75,7 +75,7 @@ const createUser = (req, res, next) => {
 
 const updateUserData = (req, res, next) => {
   const { id, body } = req.user;
-  console.log("user id/body 22: ", req.user);
+  console.log("user id/body 22: ", req.user, req.user.body, req.user._id);
   User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => res.send({ data: user }))
