@@ -28,7 +28,7 @@ const getUser = (req, res, next) => {
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
+  getUsersById(req.user.id, res, next);
 };
 
 // console.log(getCurrentUser());
@@ -74,42 +74,42 @@ const createUser = (req, res, next) => {
     });
 };
 
-const updateUserData = (req, res, next) => {
-  const { id } = req.user;
-  const { body } = req;
-
-  User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
-    .orFail(() => new NotFoundError("No user with that id was found"))
-    .then((user) => res.send({ data: user }))
-    .catch(next);
-};
-// PATCH /users/me
-const updateUser = (req, res, next) => updateUserData(req, res, next);
-// PATCH /users/me/avatar
-const updateAvatar = (req, res, next) => updateUserData(req, res, next);
-
-// const updateUser = (req, res, next) => {
+// const updateUserData = (req, res, next) => {
+//   const { id } = req.user;
 //   const { name, about } = req.body;
-//   User.findByIdAndUpdate(
-//     req.user._id,
-//     { name, about },
-//     { new: true, runValidators: true }
-//   )
+
+//   User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
 //     .orFail(() => new NotFoundError("No user with that id was found"))
 //     .then((user) => res.send({ data: user }))
 //     .catch(next);
 // };
-// const updateAvatar = (req, res, next) => {
-//   const { avatar } = req.body;
-//   User.findByIdAndUpdate(
-//     req.user._id,
-//     { avatar },
-//     { new: true, runValidators: true }
-//   )
-//     .orFail(() => new NotFoundError("No user found with that ID"))
-//     .then((user) => res.status(201).send({ data: user }))
-//     .catch(next);
-// };
+// // PATCH /users/me
+// const updateUser = (req, res, next) => updateUserData(req, res, next);
+// // PATCH /users/me/avatar
+// const updateAvatar = (req, res, next) => updateUserData(req, res, next);
+
+const updateUser = (req, res, next) => {
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { name, about },
+    { new: true, runValidators: true }
+  )
+    .orFail(() => new NotFoundError("No user with that id was found"))
+    .then((user) => res.send({ data: user }))
+    .catch(next);
+};
+const updateAvatar = (req, res, next) => {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { avatar },
+    { new: true, runValidators: true }
+  )
+    .orFail(() => new NotFoundError("No user found with that ID"))
+    .then((user) => res.status(201).send({ data: user }))
+    .catch(next);
+};
 
 module.exports = {
   getUser,
