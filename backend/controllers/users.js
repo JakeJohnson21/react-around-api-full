@@ -23,7 +23,10 @@ const getUsersById = (id, res, next) =>
 
 const getUser = (req, res, next) => {
   getUsersById(req.params._id, res, next);
-  // console.log("req.params.id in getUser : ", req.user.id);
+  console.log("3333 req.user.id in getUser : ", req.user.id);
+  console.log("3333 req.user.____id in getUser : ", req.user._id);
+  console.log("3333 req.params.id in getUser : ", req.params.id);
+  console.log("3333 req.params.____id in getUser : ", req.params._id);
 };
 
 // GET /users/:userId
@@ -91,7 +94,6 @@ const createUser = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   const id = req.user._id;
-  console.log("#1 findByIdAndUpdate req.params.id: ", req.params._id);
   console.log(" #1 id / name , about: ", req.user._id, name, about);
   User.findByIdAndUpdate(
     { id, name, about },
@@ -99,7 +101,6 @@ const updateUser = (req, res, next) => {
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
-      console.log("#2 findByIdAndUpdate req.params.id: ", req.params._id);
       console.log(" #2 id / name , about: ", req.user._id, name, about);
       res.send({ data: user });
     })
@@ -109,12 +110,10 @@ const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   const id = req.user._id;
   console.log(" #1 id / avatar: ", req.user._id, avatar);
-  console.log("#1 findByIdAndUpdate req.params.id: ", req.params._id);
   User.findByIdAndUpdate({ id, avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
-      console.log("#2 findByIdAndUpdate req.params.id: ", req.params.id);
       console.log(" #2 id / avatar: ", req.user._id, avatar);
       res.status(201).send({ data: user });
     })
