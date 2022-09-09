@@ -77,18 +77,14 @@ const createUser = (req, res, next) => {
 const updateUserData = (req, res, next) => {
   const { id } = req.user;
   const { body } = req;
+
   User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
     .orFail(() => new NotFoundError("No user with that id was found"))
-    .then((user) => {
-      res.send({ data: user });
-    })
+    .then((user) => res.send({ data: user }))
     .catch(next);
 };
 // PATCH /users/me
-const updateUser = (req, res, next) => {
-  updateUserData(req, res, next);
-  console.log("updateUserData BODY / ID: ", req.body, req.id);
-};
+const updateUser = (req, res, next) => updateUserData(req, res, next);
 // PATCH /users/me/avatar
 const updateAvatar = (req, res, next) => updateUserData(req, res, next);
 
