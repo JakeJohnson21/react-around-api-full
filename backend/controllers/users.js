@@ -89,7 +89,7 @@ const createUser = (req, res, next) => {
 // const updateAvatar = (req, res, next) => updateUserData(req, res, next);
 
 const updateUser = (req, res, next) => {
-  const { id } = req.user;
+  const id = req.user.id;
   const { name, about } = req.body;
   console.log(" #1 id / name , about: ", id, name, about);
   User.findByIdAndUpdate(id, name, about, { new: true, runValidators: true })
@@ -101,7 +101,7 @@ const updateUser = (req, res, next) => {
     .catch(next);
 };
 const updateAvatar = (req, res, next) => {
-  const { id } = req.user;
+  const id = req.user.id;
   const { avatar } = req.body;
   console.log(" #1 id / avatar: ", id, avatar);
   User.findByIdAndUpdate(id, avatar, { new: true, runValidators: true })
