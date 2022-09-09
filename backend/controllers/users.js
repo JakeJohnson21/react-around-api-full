@@ -89,11 +89,11 @@ const createUser = (req, res, next) => {
 // const updateAvatar = (req, res, next) => updateUserData(req, res, next);
 
 const updateUser = (req, res, next) => {
-  const { id } = req.user;
+  const { _id } = req.user;
   const { name, about } = req.body;
   console.log(" #1 id / name , about: ", req.user._id, name, about);
   User.findByIdAndUpdate(
-    id,
+    _id,
     { name, about },
     { new: true, runValidators: true }
   )
@@ -105,10 +105,10 @@ const updateUser = (req, res, next) => {
     .catch(next);
 };
 const updateAvatar = (req, res, next) => {
-  const { id } = req.user;
+  const { _id } = req.user;
   const { avatar } = req.body;
   console.log(" #1 id / avatar: ", req.user._id, avatar);
-  User.findByIdAndUpdate(id, avatar, { new: true, runValidators: true })
+  User.findByIdAndUpdate(_id, avatar, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
