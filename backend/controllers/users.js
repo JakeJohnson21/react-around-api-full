@@ -23,7 +23,7 @@ const getUsersById = (id, res, next) =>
 
 const getUser = (req, res, next) => {
   getUsersById(req.params._id, res, next);
-  console.log("req.params.id in getUser : ", req.params._id);
+  console.log("req.params.id in getUser : ", req.params);
 };
 
 // GET /users/:userId
