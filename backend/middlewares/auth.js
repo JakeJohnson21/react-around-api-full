@@ -19,12 +19,8 @@ const auth = (req, res, next) => {
     return next(new UnauthorizedError("Authorization required"));
   }
 
-  console.log("payload._id in AUTH: ", payload._id);
-  console.log("payload in AUTH: ", payload[1]);
-
   req.user = payload;
-  console.log("req.user in AUTH: ", req.user._id);
-
+  console.log("req.user in AUTH: ", req.user);
   return next();
 };
 
