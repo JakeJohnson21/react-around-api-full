@@ -17,7 +17,7 @@ const getUsers = (req, res) => {
 };
 const getUsersById = (id, res, next) =>
   User.findById(id)
-    // .orFail(() => new NotFoundError("No user with that ID was found"))
+    .orFail(() => new NotFoundError("No user with that ID was found"))
     .then((user) => res.send({ data: user }))
     .catch(next);
 
@@ -27,7 +27,7 @@ const getUser = (req, res, next) => {
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user.id, res, next);
+  getUsersById(req.user._id, res, next);
 };
 
 // console.log(getCurrentUser());
