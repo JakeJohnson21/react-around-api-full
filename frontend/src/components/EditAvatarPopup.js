@@ -1,16 +1,25 @@
-import React, { useRef } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
-  const avatarRef = useRef({});
+  const currentUser = useContext(CurrentUserContext);
+  const [avatar, setAvatar] = useState("");
+
+  function handleAvatar(e) {
+    setAvatar(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({
-      avatar: avatarRef.current.value,
+      avatar,
     });
   }
+
+  useEffect(() => {
+    setAvatar(currentUser.avatar || "");
+  }, [currentUser]);
 
   return (
     <PopupWithForm
@@ -23,7 +32,8 @@ function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
     >
       <label for="pic-input">
         <input
-          ref={avatarRef}
+          onChange={handleAvatar}
+          value={avatar}
           id="pic-input"
           name="link"
           type="url"

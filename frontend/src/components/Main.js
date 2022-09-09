@@ -6,6 +6,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
 
+  console.log("Main currentUser.name : ", currentUser.name);
   return (
     <main className="content">
       <section className="profile">

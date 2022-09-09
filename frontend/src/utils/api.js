@@ -14,8 +14,8 @@ class Api {
   //
   getAppInfo(token) {
     return Promise.all([
-      this.getInitialCards(token),
       this.getProfileInfo(token),
+      this.getInitialCards(token),
     ]);
   }
   getInitialCards(token) {
@@ -35,7 +35,7 @@ class Api {
   }
 
   updateProfile({ name, about }, token) {
-    return fetch(`${this._address}/users`, {
+    return fetch(`${this._address}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ class Api {
 }
 
 const api = new Api({
-  address: process.env.REACT_APP_BASE_URL,
+  address: "https://api.jake21.students.nomoredomainssbs.ru",
 });
 
 export default api;

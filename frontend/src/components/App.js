@@ -35,13 +35,32 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
 
+  console.log("general currentUser: ", currentUser);
   const history = useHistory();
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwt");
+  //   if (token && isLoggedIn) {
+  //     api
+  //       .getAppInfo(token)
+  //       .then(([userData, cardData]) => {
+  //         setCurrentUser(userData.data);
+  //         // console.log("useData / userData.data : ", userData, userData.data);
+  //         // console.log("cardData / cardData.data : ", cardData, cardData.data);
+  //         setCards(cardData.data);
+  //       })
+  //       .catch((err) => console.error(`Error: ${err.status}`));
+  //   }
+  // }, [isLoggedIn]);
 
   function handleUpdateUser({ name, about }) {
     const token = localStorage.getItem("jwt");
     api
       .updateProfile({ name, about }, token)
-      .then(setCurrentUser)
+      .then(() => {
+        setCurrentUser({ name, about });
+        console.log("currentUser 999: ", currentUser, name, about);
+      })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
@@ -50,20 +69,14 @@ function App() {
     const token = localStorage.getItem("jwt");
     api
       .updateProfilePicture({ avatar }, token)
-      .then(setCurrentUser)
+      .then(() => {
+        setCurrentUser({ avatar });
+        console.log("currentUser 777: ", currentUser, avatar);
+      })
+
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    api
-      .getProfileInfo(token)
-      .then((profile) => {
-        setCurrentUser(profile);
-      })
-      .catch((err) => console.error(`Error: ${err.status}`));
-  }, []);
 
   const [cards, setCards] = useState([]);
 
@@ -152,24 +165,23 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    if (token && isLoggedIn) {
-      api
-        .getAppInfo(token)
-        .then(([cardData, userData]) => {
-          setCurrentUser(userData.data);
-          setCards(cardData.data);
-        })
-        .catch((err) => console.error(`Error: ${err.status}`));
-    }
-  }, [isLoggedIn]);
+    api
+      .getProfileInfo(token)
+      .then((profile) => {
+        setCurrentUser(profile.name, profile.about, profile.avatar);
+        // console.log("profile: ", profile);
+      })
+      .catch((err) => console.error(`Error: ${err.status}`));
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
     if (token) {
       auth
         .checkToken(token)
-        .then((res) => {
-          setEmail(res.data.email);
+        .then(() => {
+          setEmail(email);
           setIsLoggedIn(true);
           history.push("/");
         })
@@ -178,7 +190,7 @@ function App() {
           localStorage.removeItem("jwt");
         });
     }
-  }, [history]);
+  }, []);
 
   function handleCardClick(card) {
     setSelectedCard(card);

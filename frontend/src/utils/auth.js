@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.BASE_URL;
+export const BASE_URL = "https://api.jake21.students.nomoredomainssbs.ru";
 
 const processResponse = (res) => {
   if (res.ok) {
@@ -43,5 +43,7 @@ export const checkToken = (token) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  }).then(processResponse);
+  })
+    .then(processResponse)
+    .then((data) => data);
 };
