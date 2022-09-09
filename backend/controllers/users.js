@@ -22,12 +22,12 @@ const getUsersById = (id, res, next) =>
     .catch(next);
 
 const getUser = (req, res, next) => {
-  getUsersById(req.user.id, res, next);
+  return getUsersById(req.user.id, res, next);
 };
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user.id, res, next);
+  return getUsersById(req.user.id, res, next);
 };
 
 // console.log(getCurrentUser());
