@@ -113,7 +113,7 @@ const updateAvatar = (req, res, next) => {
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
       console.log(" #2 id / avatar: ", req.user._id, avatar);
-      res.status(201).send({ data: user });
+      res.send({ data: user });
     })
     .catch(next);
 };
