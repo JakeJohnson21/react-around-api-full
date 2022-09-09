@@ -92,7 +92,11 @@ const updateUser = (req, res, next) => {
   const { id } = req.user;
   const { name, about } = req.body;
   console.log(" #1 id / name , about: ", id, name, about);
-  User.findByIdAndUpdate(id, name, about, { new: true, runValidators: true })
+  User.findByIdAndUpdate(
+    id,
+    { name, about },
+    { new: true, runValidators: true }
+  )
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
       console.log(" #2 id / name , about: ", id, name, about);
