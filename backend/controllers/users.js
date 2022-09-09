@@ -22,13 +22,7 @@ const getUsersById = (id, res, next) =>
     .catch(next);
 
 const getUser = (req, res, next) => {
-  getUsersById(req.params._id, res, next)
-    .orFail(() => new NotFoundError("No user with that ID was found"))
-    .then((user) => {
-      res.send({ data: user });
-      console.log("12345 user: ", user);
-    })
-    .catch(next);
+  getUsersById(req.user._id, res, next);
 };
 
 // GET /users/:userId
