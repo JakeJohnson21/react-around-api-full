@@ -92,14 +92,14 @@ const createUser = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   const id = req.user._id;
-  // console.log(" #1 id / name , about: ", req.user._id, name, about);
+  console.log(" #1 id / name , about: ", req.user._id, name, about);
   User.findByIdAndUpdate(
     { id, name, about },
     { new: true, runValidators: true }
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
-      // console.log(" #2 id / name , about: ", req.user._id, name, about);
+      console.log(" #2 id / name , about: ", req.user._id, name, about);
       res.send({ data: user });
     })
     .catch(next);
@@ -107,7 +107,7 @@ const updateUser = (req, res, next) => {
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   const id = req.user._id;
-  // console.log(" #1 id / avatar: ", req.user._id, avatar);
+  console.log(" #1 id / avatar: ", req.user._id, avatar);
   User.findByIdAndUpdate({ id, avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
