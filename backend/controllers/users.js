@@ -89,29 +89,32 @@ const createUser = (req, res, next) => {
 // const updateAvatar = (req, res, next) => updateUserData(req, res, next);
 
 const updateUser = (req, res, next) => {
-  const { _id } = req.user;
   const { name, about } = req.body;
+  const id = req.user._id;
+  console.log("#1 findByIdAndUpdate req.params.id: ", req.params.id);
   console.log(" #1 id / name , about: ", req.user._id, name, about);
   User.findByIdAndUpdate(
-    _id,
-    { name, about },
+    { id, name, about },
     { new: true, runValidators: true }
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
+      console.log("#2 findByIdAndUpdate req.params.id: ", req.params.id);
       console.log(" #2 id / name , about: ", req.user._id, name, about);
       res.send({ data: user });
     })
     .catch(next);
 };
 const updateAvatar = (req, res, next) => {
-  const { _id } = req.user;
   const { avatar } = req.body;
+  const id = req.user._id;
   console.log(" #1 id / avatar: ", req.user._id, avatar);
-  User.findByIdAndUpdate(_id, avatar, { new: true, runValidators: true })
+  console.log("#1 findByIdAndUpdate req.params.id: ", req.params.id);
+  User.findByIdAndUpdate({ id, avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
+      console.log("#2 findByIdAndUpdate req.params.id: ", req.params.id);
       console.log(" #2 id / avatar: ", req.user._id, avatar);
       res.status(201).send({ data: user });
     })
