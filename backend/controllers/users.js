@@ -77,11 +77,12 @@ const createUser = (req, res, next) => {
 const updateUserData = (req, res, next) => {
   const { id } = req.user;
   const { body } = req;
-  console.log("updateUserData -body-id- : ", req.body, req.user._id);
-  console.log("user id/body 22: ", req.user, req.user.body, req.user.id);
   User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
     .orFail(() => new NotFoundError("No user with that id was found"))
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      res.send({ data: user });
+      console.log("updateUserData BODY / ID: ", body, id);
+    })
     .catch(next);
 };
 // PATCH /users/me
