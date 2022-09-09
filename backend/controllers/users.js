@@ -23,16 +23,15 @@ const getUsersById = (id, res, next) =>
 
 const getUser = (req, res, next) => {
   getUsersById(req.params._id, res, next);
-  console.log("req.user.id in getUser : ", req.user.id);
-  console.log("req.user._id in getUser : ", req.user_.id);
-  console.log("req.params.id in getUser : ", req.params.id);
+  // console.log("req.params.id in getUser : ", req.user.id);
 };
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
-  console.log("getCurrentUser req.user._id: ", req.user._id);
+  getUsersById(req.user.id, res, next);
 };
+
+console.log(getCurrentUser());
 // GET /users/me
 
 const login = (req, res) => {
