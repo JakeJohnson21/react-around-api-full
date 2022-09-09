@@ -61,8 +61,8 @@ const likeCard = (req, res, next) => updateLike(req, res, next, "$addToSet");
 const unlikeCard = (req, res, next) => updateLike(req, res, next, "$pull");
 
 const deleteCard = (req, res, next) => {
-  const { id } = req.params;
-  Card.findById(id)
+  const { _id } = req.params;
+  Card.findById(_id)
     .orFail(() => new NotFoundError("No card found by that id"))
     .then((card) => {
       if (!card.owner.equals(req.user._id)) {
