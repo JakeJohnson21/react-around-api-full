@@ -20,6 +20,7 @@ const auth = (req, res, next) => {
   }
 
   console.log("payload._id in AUTH: ", payload._id);
+  console.log("payload in AUTH: ", payload);
 
   req.user = payload;
   console.log("req.user in AUTH: ", req.user._id);
