@@ -87,7 +87,7 @@ const updateUserData = (req, res, next) => {
 // PATCH /users/me
 const updateUser = (req, res, next) => {
   updateUserData(req, res, next);
-  console.log("updateUserData BODY / ID: ", body, id);
+  console.log("updateUserData BODY / ID: ", req.body, req.id);
 };
 // PATCH /users/me/avatar
 const updateAvatar = (req, res, next) => updateUserData(req, res, next);
