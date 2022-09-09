@@ -15,13 +15,12 @@ const auth = (req, res, next) => {
   let payload;
   try {
     payload = jwt.verify(token, JWT_SECRET);
-    console.log("payload: ", payload);
   } catch (err) {
     return next(new UnauthorizedError("Authorization required"));
   }
 
   req.user = payload;
-  console.log("req.user: ", req.user._id);
+  console.log("req.user in AUTH: ", req.user._id);
 
   return next();
 };
