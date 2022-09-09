@@ -91,7 +91,7 @@ const createUser = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   const id = req.user._id;
-  console.log("#1 findByIdAndUpdate req.params.id: ", req.params.id);
+  console.log("#1 findByIdAndUpdate req.params.id: ", req.params._id);
   console.log(" #1 id / name , about: ", req.user._id, name, about);
   User.findByIdAndUpdate(
     { id, name, about },
@@ -99,7 +99,7 @@ const updateUser = (req, res, next) => {
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
-      console.log("#2 findByIdAndUpdate req.params.id: ", req.params.id);
+      console.log("#2 findByIdAndUpdate req.params.id: ", req.params._id);
       console.log(" #2 id / name , about: ", req.user._id, name, about);
       res.send({ data: user });
     })
@@ -109,7 +109,7 @@ const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   const id = req.user._id;
   console.log(" #1 id / avatar: ", req.user._id, avatar);
-  console.log("#1 findByIdAndUpdate req.params.id: ", req.params.id);
+  console.log("#1 findByIdAndUpdate req.params.id: ", req.params._id);
   User.findByIdAndUpdate({ id, avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
