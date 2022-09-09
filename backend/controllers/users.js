@@ -81,12 +81,14 @@ const updateUserData = (req, res, next) => {
     .orFail(() => new NotFoundError("No user with that id was found"))
     .then((user) => {
       res.send({ data: user });
-      console.log("updateUserData BODY / ID: ", body, id);
     })
     .catch(next);
 };
 // PATCH /users/me
-const updateUser = (req, res, next) => updateUserData(req, res, next);
+const updateUser = (req, res, next) => {
+  updateUserData(req, res, next);
+  console.log("updateUserData BODY / ID: ", body, id);
+};
 // PATCH /users/me/avatar
 const updateAvatar = (req, res, next) => updateUserData(req, res, next);
 
