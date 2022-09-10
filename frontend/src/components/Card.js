@@ -10,7 +10,7 @@ function Card({
   onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = card.owner === currentUser._id;
   const isLiked = card.likes.some((user) => user._id === currentUser._id);
   const cardDeleteButtonClassName = `card__trash ${
     isOwn ? `card__trash_visible` : `card__trash_hidden`

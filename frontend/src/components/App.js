@@ -35,31 +35,29 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
 
-  console.log("general currentUser: ", currentUser);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("jwt");
-  //   if (token && isLoggedIn) {
-  //     api
-  //       .getAppInfo(token)
-  //       .then(([userData, cardData]) => {
-  //         setCurrentUser(userData.data);
-  //         // console.log("useData / userData.data : ", userData, userData.data);
-  //         // console.log("cardData / cardData.data : ", cardData, cardData.data);
-  //         setCards(cardData.data);
-  //       })
-  //       .catch((err) => console.error(`Error: ${err.status}`));
-  //   }
-  // }, [isLoggedIn]);
+  console.log("TOP CURRENT USER: ", currentUser);
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token && isLoggedIn) {
+      api
+        .getAppInfo(token)
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData.data);
+          setCards(cardData);
+        })
+        .catch((err) => console.error(`Error: ${err.status}`));
+    }
+  }, [isLoggedIn]);
 
   function handleUpdateUser({ name, about }) {
     const token = localStorage.getItem("jwt");
     api
       .updateProfile({ name, about }, token)
-      .then(() => {
-        setCurrentUser({ name, about });
-        console.log("currentUser 999: ", currentUser, name, about);
+      .then((newProfile) => {
+        setCurrentUser(newProfile);
       })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -69,11 +67,9 @@ function App() {
     const token = localStorage.getItem("jwt");
     api
       .updateProfilePicture({ avatar }, token)
-      .then(() => {
-        setCurrentUser({ avatar });
-        console.log("currentUser 777: ", currentUser, avatar);
+      .then((newAvatar) => {
+        setCurrentUser(newAvatar);
       })
-
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
@@ -88,7 +84,6 @@ function App() {
         setCards([generatedCard, ...cards]);
         handleCloseAllPopups();
       })
-
       .catch((err) => console.error(`Error: ${err.status}`));
   }
 
@@ -152,13 +147,12 @@ function App() {
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }
-
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     api
-      .getInitialCards(token)
-      .then((card) => {
-        setCards(card);
+      .getProfileInfo(token)
+      .then((profile) => {
+        setCurrentUser(profile);
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }, []);
@@ -166,10 +160,9 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     api
-      .getProfileInfo(token)
-      .then((profile) => {
-        setCurrentUser(profile.name, profile.about, profile.avatar);
-        // console.log("profile: ", profile);
+      .getInitialCards(token)
+      .then((card) => {
+        setCards(card);
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }, []);
@@ -218,7 +211,7 @@ function App() {
     setIsDeleteCardPopupOpen(false);
     setIsInfoToolTipOpen(false);
   }
-
+  console.log("CURRENT USER: ", currentUser);
   //________________________________________________________________________//
   //
 
