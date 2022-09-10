@@ -39,25 +39,26 @@ function App() {
 
   console.log("TOP CURRENT USER: ", currentUser);
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (token && isLoggedIn) {
-      api
-        .getAppInfo(token)
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData.data);
-          setCards(cardData);
-        })
-        .catch((err) => console.error(`Error: ${err.status}`));
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwt");
+  //   if (token && isLoggedIn) {
+  //     api
+  //       .getAppInfo(token)
+  //       .then(([userData, cardData]) => {
+  //         setCurrentUser(userData.data);
+  //         setCards(cardData);
+  //       })
+  //       .catch((err) => console.error(`Error: ${err.status}`));
+  //   }
+  // }, [isLoggedIn]);
 
   function handleUpdateUser({ name, about }) {
     const token = localStorage.getItem("jwt");
     api
       .updateProfile({ name, about }, token)
       .then((newProfile) => {
-        setCurrentUser(newProfile);
+        setCurrentUser(newProfile.data);
+        console.log("newProfile", newProfile.data);
       })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -68,13 +69,14 @@ function App() {
     api
       .updateProfilePicture({ avatar }, token)
       .then((newAvatar) => {
-        setCurrentUser(newAvatar);
+        setCurrentUser(newAvatar.data);
       })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
   }
 
   const [cards, setCards] = useState([]);
+  console.log("GENERAL CARDS, SETCARDS", cards, setCards);
 
   function handleAddPlaceSubmit({ name, link }) {
     const token = localStorage.getItem("jwt");
@@ -126,11 +128,13 @@ function App() {
     const token = localStorage.getItem("jwt");
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
-      setCards((state) =>
+      setCards((state) => {
+        console.log("STATE: ", state);
+        console.log("STATE_CARDS: ", cards);
         state.map((currentCard) =>
           currentCard._id === card._id ? newCard : currentCard
-        )
-      ).catch((err) => console.error(`Error: ${err.status}`));
+        );
+      }).catch((err) => console.error(`Error: ${err.status}`));
     });
   }
 

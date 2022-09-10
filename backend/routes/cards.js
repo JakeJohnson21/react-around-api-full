@@ -13,7 +13,7 @@ const {
 } = require("../controllers/cards");
 
 router.post("/", validateCardBody, createCard);
-router.delete("/:id", validateAuthentication, deleteCard);
+router.delete("/:_id", validateAuthentication, deleteCard);
 router.put("/:cardId/likes", validateAuthentication, likeCard);
 router.delete("/:cardId/likes", validateAuthentication, unlikeCard);
 router.get("/", validateAuthentication, getCards);
