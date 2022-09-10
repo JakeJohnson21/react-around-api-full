@@ -89,10 +89,11 @@ const createUser = (req, res, next) => {
 
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
-  const _id = req.user._id;
+  const id = req.user._id;
   // console.log(" #1 id / name , about: ", req., name, about);
   User.findByIdAndUpdate(
-    { _id, name, about },
+    id,
+    { name, about },
     { new: true, runValidators: true }
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
@@ -101,9 +102,9 @@ const updateUser = (req, res, next) => {
 };
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  const _id = req.user._id;
+  const id = req.user._id;
   // console.log(" #1 id / avatar: ", req.user._id, avatar);
-  User.findByIdAndUpdate({ _id, avatar }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(id, { avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
