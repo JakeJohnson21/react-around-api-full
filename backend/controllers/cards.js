@@ -68,7 +68,7 @@ const deleteCard = (req, res, next) => {
       if (!card.owner.equals(req.user._id)) {
         next(new ForbiddenError("You cannot delete someone else's card"));
       }
-      Card.deleteOne(card).then(() => res.send({ data: card }));
+      Card.deleteOne(card).then((card) => res.send({ data: card }));
     })
     .catch(next);
 };
