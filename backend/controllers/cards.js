@@ -44,11 +44,9 @@ const createCard = (req, res, next) => {
 };
 
 const updateLike = (req, res, next, method) => {
-  const { cardId } = req.params;
   console.log("cardId in likes: ", cardId);
-  console.log("req.params for likes: ", req.params);
   Card.findByIdAndUpdate(
-    cardId,
+    req.params._id
     { [method]: { likes: req.user._id } },
     { new: true }
   )
@@ -61,14 +59,13 @@ const likeCard = (req, res, next) => updateLike(req, res, next, "$addToSet");
 const unlikeCard = (req, res, next) => updateLike(req, res, next, "$pull");
 
 const deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
-  Card.findById(cardId)
+  Card.findById(req.params._id)
     .orFail(() => new NotFoundError("No card found by that id"))
     .then((card) => {
       if (!card.owner.equals(req.user._id)) {
         next(new ForbiddenError("You cannot delete someone else's card"));
       }
-      Card.deleteOne(card).then((card) => res.send({ data: card }));
+      Card.deleteOne(card).then(() => res.send({ data: card }));
     })
     .catch(next);
 };
