@@ -22,7 +22,7 @@ const getUsersById = (id, res, next) =>
     .catch(next);
 
 const getUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
+  getUsersById(req.user.id, res, next);
 };
 
 // GET /users/:userId
@@ -102,12 +102,12 @@ const updateUser = (req, res, next) => {
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   const _id = req.user._id;
-  console.log(" #1 id / avatar: ", req.user._id, avatar);
+  // console.log(" #1 id / avatar: ", req.user._id, avatar);
   User.findByIdAndUpdate({ _id, avatar }, { new: true, runValidators: true })
 
     .orFail(() => new NotFoundError("No user found with that ID"))
     .then((user) => {
-      console.log(" #2 id / avatar: ", req.user._id, avatar);
+      // console.log(" #2 id / avatar: ", req.user._id, avatar);
       res.send({ data: user });
     })
     .catch(next);
