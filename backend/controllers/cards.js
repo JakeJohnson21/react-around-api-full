@@ -44,9 +44,9 @@ const createCard = (req, res, next) => {
 };
 
 const updateLike = (req, res, next, method) => {
-  console.log("req.params for likes: ", req.params);
   const { cardId } = req.params;
   console.log("cardId in likes: ", cardId);
+  console.log("req.params for likes: ", req.params);
   Card.findByIdAndUpdate(
     cardId,
     { [method]: { likes: req.user._id } },
