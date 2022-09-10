@@ -27,7 +27,7 @@ const getUser = (req, res, next) => {
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
+  getUsersById(req.user.id, res, next);
 };
 
 // console.log(getCurrentUser());
