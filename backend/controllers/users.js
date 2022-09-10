@@ -15,19 +15,19 @@ const getUsers = (req, res) => {
     .then((users) => res.status(200).send({ data: users }))
     .catch((err) => res.status(500).send(err));
 };
-const getUsersById = (_id, res, next) =>
-  User.findById(_id)
+const getUsersById = (id, res, next) =>
+  User.findById(id)
     .orFail(() => new NotFoundError("No user with that ID was found"))
     .then((user) => res.send({ data: user }))
     .catch(next);
 
 const getUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
+  getUsersById(req.user.id, res, next);
 };
 
 // GET /users/:userId
 const getCurrentUser = (req, res, next) => {
-  getUsersById(req.user._id, res, next);
+  getUsersById(req.user.id, res, next);
 };
 
 // console.log(getCurrentUser());
@@ -90,16 +90,13 @@ const createUser = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   const _id = req.user._id;
-  console.log(" #1 id / name , about: ", req.user._id, name, about);
+  // console.log(" #1 id / name , about: ", req., name, about);
   User.findByIdAndUpdate(
     { _id, name, about },
     { new: true, runValidators: true }
   )
     .orFail(() => new NotFoundError("No user with that id was found"))
-    .then((user) => {
-      console.log(" #2 id / name , about: ", req.user._id, name, about);
-      res.send({ data: user });
-    })
+    .then((user) => res.send({ data: user }))
     .catch(next);
 };
 const updateAvatar = (req, res, next) => {
