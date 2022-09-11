@@ -54,7 +54,7 @@ const updateLike = (req, res, next, method) => {
     .then((card) => res.send({ data: card }))
     .catch(next);
 };
-console.log("$!!pull : ", $pull);
+console.log("$!!pull : ", "$pull");
 const likeCard = (req, res, next, $addToSet) =>
   updateLike(req, res, next, $addToSet);
 const unlikeCard = (req, res, next, $pull) => {
