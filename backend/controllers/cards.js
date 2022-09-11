@@ -65,6 +65,7 @@ const deleteCard = (req, res, next) => {
   Card.findById(cardId)
     .orFail(() => new NotFoundError("No card found by that id"))
     .then((card) => {
+      console.log("CARD OWNER: ", owner);
       if (!card.owner.equals(req.user._id)) {
         next(new ForbiddenError("You cannot delete someone else's card"));
       }
