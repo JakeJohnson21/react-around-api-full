@@ -39,18 +39,18 @@ function App() {
 
   console.log("TOP CURRENT USER: ", currentUser);
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("jwt");
-  //   if (token && isLoggedIn) {
-  //     api
-  //       .getAppInfo(token)
-  //       .then(([userData, cardData]) => {
-  //         setCurrentUser(userData.data);
-  //         setCards(cardData);
-  //       })
-  //       .catch((err) => console.error(`Error: ${err.status}`));
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token && isLoggedIn) {
+      api
+        .getAppInfo(token)
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData.data);
+          setCards(cardData);
+        })
+        .catch((err) => console.error(`Error: ${err.status}`));
+    }
+  }, [isLoggedIn]);
 
   function handleUpdateUser({ name, about }) {
     const token = localStorage.getItem("jwt");
@@ -58,7 +58,7 @@ function App() {
       .updateProfile({ name, about }, token)
       .then((newProfile) => {
         setCurrentUser(newProfile.data);
-        // console.log("newProfile", newProfile.data);
+        console.log("newProfile", newProfile.data);
       })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -77,7 +77,7 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
-  // console.log("GENERAL CARDS, SETCARDS", cards, setCards);
+  console.log("GENERAL CARDS, SETCARDS", cards, setCards);
 
   function handleAddPlaceSubmit({ name, link }) {
     const token = localStorage.getItem("jwt");
@@ -142,7 +142,7 @@ function App() {
     api
       .deleteCard(card, token)
       .then((deleteCard) => {
-        set((currentCards) =>
+        setCards((currentCards) =>
           currentCards.filter(
             (currentCard) => currentCard._id !== deleteCard._id
           )
