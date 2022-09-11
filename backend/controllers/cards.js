@@ -55,8 +55,9 @@ const updateLike = (req, res, next, method) => {
     .catch(next);
 };
 
-const likeCard = (req, res, next) => updateLike(req, res, next, $addToSet);
-const unlikeCard = (req, res, next) => updateLike(req, res, next, $pull);
+const likeCard = (req, res, next, $addToSet) =>
+  updateLike(req, res, next, $addToSet);
+const unlikeCard = (req, res, next, $pull) => updateLike(req, res, next, $pull);
 
 const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
