@@ -3,14 +3,24 @@ import React, { useContext } from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main(props) {
+function Main({
+  cards,
+  onEditAvatarClick,
+  onEditProfileClick,
+  onAddPlaceClick,
+  onPreviewPopupClick,
+  onCardClick,
+  onCardDelete,
+  onCardLike,
+}) {
   const currentUser = useContext(CurrentUserContext);
+  console.log("MAIN CARDS: ", cards);
 
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__text">
-          <div className="profile__image" onClick={props.onEditAvatarClick}>
+          <div className="profile__image" onClick={onEditAvatarClick}>
             <img
               className="profile__pic"
               id="imageImg"
@@ -27,7 +37,7 @@ function Main(props) {
             <div className="profile__title">
               <h1 className="profile__title-name">{currentUser.name}</h1>
               <button
-                onClick={props.onEditProfileClick}
+                onClick={onEditProfileClick}
                 className="profile__edit-button"
                 type="button"
                 aria-label="edit profile"
@@ -38,7 +48,7 @@ function Main(props) {
         </div>
 
         <button
-          onClick={props.onAddPlaceClick}
+          onClick={onAddPlaceClick}
           className="profile__add"
           type="button"
           aria-label="add"
@@ -46,14 +56,14 @@ function Main(props) {
       </section>
 
       <section className="cards">
-        {props.cards.map((card) => (
+        {cards.map((card) => (
           <Card
             key={card._id}
             card={card}
-            onPreviewPopupClick={props.onPreviewPopupClick}
-            onCardClick={props.onCardClick}
-            onCardLike={props.onCardLike}
-            onCardDelete={props.onCardDelete}
+            onPreviewPopupClick={onPreviewPopupClick}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
           />
         ))}
       </section>

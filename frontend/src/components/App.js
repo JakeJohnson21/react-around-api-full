@@ -76,6 +76,7 @@ function App() {
   }
 
   const [cards, setCards] = useState([]);
+
   console.log("GENERAL CARDS, SETCARDS", cards, setCards);
 
   function handleAddPlaceSubmit({ name, link }) {
@@ -129,8 +130,6 @@ function App() {
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
       setCards((state) => {
-        console.log("STATE: ", state);
-        console.log("STATE_CARDS: ", cards);
         state.map((currentCard) =>
           currentCard._id === card._id ? newCard : currentCard
         );
@@ -141,7 +140,7 @@ function App() {
   function handleCardDelete(card) {
     const token = localStorage.getItem("jwt");
     api
-      .deleteCard(card._id, token)
+      .deleteCard(card, token)
       .then((deleteCard) => {
         setCards((currentCards) =>
           currentCards.filter(
@@ -156,7 +155,7 @@ function App() {
     api
       .getProfileInfo(token)
       .then((profile) => {
-        setCurrentUser(profile);
+        setCurrentUser(profile.data);
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }, []);
@@ -167,6 +166,7 @@ function App() {
       .getInitialCards(token)
       .then((card) => {
         setCards(card);
+        console.log("useEFFECT CARD: ", card);
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }, []);
@@ -218,6 +218,7 @@ function App() {
   console.log("CURRENT USER: ", currentUser);
   //________________________________________________________________________//
   //
+  console.log("EMERGENCY CARDS: ", cards);
 
   return (
     <div className="App">
