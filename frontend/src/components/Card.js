@@ -24,13 +24,11 @@ function Card({
     onPreviewPopupClick();
   }
 
-  function handleLikeClick(e) {
-    e.preventDefault();
+  function handleLikeClick() {
     onCardLike(card);
   }
 
-  function handleDeleteClick(e) {
-    e.preventDefault();
+  function handleDeleteClick() {
     onCardDelete(card);
   }
   return (
