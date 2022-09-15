@@ -27,6 +27,7 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
@@ -75,16 +76,13 @@ function App() {
       .catch((err) => console.error(`Error: ${err.status}`));
   }
 
-  const [cards, setCards] = useState([]);
-
-  console.log("GENERAL CARDS, SETCARDS", cards, setCards);
-
   function handleAddPlaceSubmit({ name, link }) {
     const token = localStorage.getItem("jwt");
     api
       .postNewCard({ name, link }, token)
       .then((generatedCard) => {
-        setCards([generatedCard, ...cards]);
+        setCards([generatedCard.data, ...cards]);
+        console.log("generatedCARD.data: ", generatedCard.data);
         handleCloseAllPopups();
       })
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -127,7 +125,7 @@ function App() {
 
   function handleCardLike(card) {
     const token = localStorage.getItem("jwt");
-    const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    const isLiked = card.likes.some((user) => user === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
       setCards((state) => {
         state.map((currentCard) =>
@@ -216,6 +214,7 @@ function App() {
     setIsInfoToolTipOpen(false);
   }
   console.log("CURRENT USER: ", currentUser);
+  console.log("GENERAL CARDS, SETCARDS", cards, setCards);
   //________________________________________________________________________//
   //
 
