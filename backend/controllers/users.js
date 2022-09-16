@@ -6,7 +6,6 @@ const {
   NotFoundError, // 404
   BadRequestError, // 400
   ConflictError, // 409
-  UnauthorizedError, // 401
 } = require("../errors/errors");
 require("dotenv").config();
 
@@ -33,7 +32,7 @@ const getCurrentUser = (req, res, next) => {
 // console.log(getCurrentUser());
 // GET /users/me
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
@@ -42,7 +41,7 @@ const login = (req, res) => {
       });
       res.send({ data: user.toJSON(), token });
     })
-    .catch(() => new UnauthorizedError("Incorrect email or password"));
+    .catch(next);
 };
 
 const createUser = (req, res, next) => {

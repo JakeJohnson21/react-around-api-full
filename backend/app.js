@@ -2,8 +2,9 @@ const express = require("express");
 const helmet = require("helmet");
 require("dotenv").config();
 const mongoose = require("mongoose");
+const { errors } = require("celebrate");
 const cors = require("cors");
-const expressRateLimit = require("express-rate-limit");
+// const expressRateLimit = require("express-rate-limit");
 const authMiddleware = require("./middlewares/auth");
 const errorHandler = require("./middlewares/error-handler");
 const authRouter = require("./routes/auth");
@@ -25,7 +26,7 @@ mongoose.connect(mongoServerAddress);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(expressRateLimit(20));
+// app.use(expressRateLimit(20));
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("Server will crash now");
@@ -44,7 +45,7 @@ app.use("/cards", cardRouter);
 app.use("*", (req, res) => {
   res.send(new NotFoundError("Requested resource not found"));
 });
-
+app.use(errors());
 app.use(errorLogger);
 app.use(errorHandler);
 

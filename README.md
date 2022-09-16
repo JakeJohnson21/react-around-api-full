@@ -1,8 +1,13 @@
 # react-around-api-full
 
-The API of "Around the U.S." with authorization and registration handled by the back-end server.
+This project introduces authorization and authentication to the Around the US project. Users are now able to securely access their account with front-end and back-end authentication. The server stores a users login in jwt form for the ease of future visits to the site. They can now log out and new members can join! The site is live and can be accessed anytime you'd like. There is also greater security to, validation now being run through celebrate with Joi!
 
-This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users. Please add to this readme:
+![](../../../Screen%20Shot%202022-07-27%20at%2012.23.04%20AM.png)
+Creating a new account or Logging in is simple and quick.
+![](../../../Screen%20Shot%202022-07-27%20at%2012.23.20%20AM.png)
+We make sure you've successfully created an accout or logged in with this visual cue.
+![](../../../Screen%20Shot%202022-07-27%20at%2012.22.52%20AM.png)
+This new adaptable header changes depending who is accessing the site. A user can log off, a new user can sign in or up.
 
 - a link to repository with the complete React application which uses this API;
 

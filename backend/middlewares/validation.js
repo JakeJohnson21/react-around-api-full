@@ -1,4 +1,4 @@
-const { celebrate, Joi } = require("celebrate");
+const { celebrate, Joi, errors } = require("celebrate");
 const validator = require("validator");
 
 const validateURL = (value, helpers) => {
@@ -32,7 +32,7 @@ const validateUserBody = celebrate({
 
 const validateCardBody = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30).message({
+    name: Joi.string().required().min(2).max(30).messages({
       "string.min": "The minimum length of the name field is 2",
       "string.max": "The maximum length of the name field is 30",
       "string.empty": "The name field must be filled in",
@@ -44,6 +44,17 @@ const validateCardBody = celebrate({
       .messages({
         "string-empty": "The link field must be filled in",
       }),
+  }),
+});
+
+const validateId = celebrate({
+  params: Joi.object().keys({
+    _id: Joi.string().alphanum().length(24),
+  }),
+});
+const validateCardId = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().alphanum().length(24),
   }),
 });
 
@@ -84,6 +95,8 @@ const validateProfile = celebrate({
 });
 
 module.exports = {
+  validateId,
+  validateCardId,
   validateCardBody,
   validateUserBody,
   validateAuthentication,

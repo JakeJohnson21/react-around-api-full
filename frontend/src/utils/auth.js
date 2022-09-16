@@ -1,5 +1,6 @@
-export const BASE_URL = "https://api.jake21.students.nomoredomainssbs.ru";
+import { BaseUrl } from "./config";
 
+export const BASE_URL = BaseUrl;
 const processResponse = (res) => {
   if (res.ok) {
     return res.json();

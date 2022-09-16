@@ -38,8 +38,6 @@ function App() {
 
   const history = useHistory();
 
-  console.log("TOP CURRENT USER: ", currentUser);
-
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token && isLoggedIn) {
@@ -59,7 +57,6 @@ function App() {
       .updateProfile({ name, about }, token)
       .then((newProfile) => {
         setCurrentUser(newProfile.data);
-        console.log("newProfile", newProfile.data);
       })
       .then(handleCloseAllPopups)
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -82,7 +79,7 @@ function App() {
       .postNewCard({ name, link }, token)
       .then((generatedCard) => {
         setCards([generatedCard.data, ...cards]);
-        console.log("generatedCARD.data: ", generatedCard.data);
+
         handleCloseAllPopups();
       })
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -126,13 +123,16 @@ function App() {
   function handleCardLike(card) {
     const token = localStorage.getItem("jwt");
     const isLiked = card.likes.some((user) => user === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
-      setCards((state) => {
-        state.map((currentCard) =>
-          currentCard._id === card._id ? newCard.data : currentCard
-        );
-      }).catch((err) => console.error(`Error: ${err.status}`));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked, token)
+      .then((newCard) => {
+        setCards((state) => {
+          return state.map((currentCard) =>
+            currentCard._id === card._id ? newCard.data : currentCard
+          );
+        });
+      })
+      .catch((err) => console.error(`Error: ${err.status}`));
   }
 
   function handleCardDelete(card) {
@@ -141,9 +141,9 @@ function App() {
       .deleteCard(card, token)
       .then((deleteCard) => {
         setCards((currentCards) =>
-          currentCards.filter(
-            (currentCard) => currentCard._id !== deleteCard._id
-          )
+          currentCards.filter((currentCard) => {
+            currentCard._id !== deleteCard._id;
+          })
         );
       })
       .catch((err) => console.error(`Error: ${err.status}`));
@@ -164,7 +164,6 @@ function App() {
       .getInitialCards(token)
       .then((card) => {
         setCards(card);
-        console.log("useEFFECT CARD: ", card);
       })
       .catch((err) => console.error(`Error: ${err.status}`));
   }, []);
@@ -181,7 +180,6 @@ function App() {
           history.push("/");
         })
         .catch((err) => {
-          console.log(err);
           localStorage.removeItem("jwt");
         });
     }
@@ -213,11 +211,8 @@ function App() {
     setIsDeleteCardPopupOpen(false);
     setIsInfoToolTipOpen(false);
   }
-  console.log("CURRENT USER: ", currentUser);
-  console.log("GENERAL CARDS, SETCARDS", cards, setCards);
   //________________________________________________________________________//
   //
-
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>

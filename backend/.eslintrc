@@ -10,6 +10,7 @@
     "comma-dangle": "off",
     "object-curly-newline": "off",
     "newline-per-chained-call": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "operator-linebreak": "off"
   }
 }

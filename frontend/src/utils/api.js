@@ -1,3 +1,4 @@
+import { BaseUrl } from "./config";
 class Api {
   constructor({ address }) {
     this._address = address;
@@ -122,7 +123,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://api.jake21.students.nomoredomainssbs.ru",
+  address: BaseUrl,
 });
 
 export default api;
