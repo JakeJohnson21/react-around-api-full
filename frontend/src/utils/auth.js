@@ -1,4 +1,4 @@
-export const BASE_URL = (URL = process.env);
+export const BASE_URL = "https://api.jake21.students.nomoredomainssbs.ru";
 
 const processResponse = (res) => {
   if (res.ok) {
