@@ -122,7 +122,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://api.jake21.students.nomoredomainssbs.ru",
+  address: (URL = process.env),
 });
 
 export default api;
