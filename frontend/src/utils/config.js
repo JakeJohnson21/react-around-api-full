@@ -1,1 +1,1 @@
-export const BaseUrl = "https://api.students.nomoredomainssbs.ru";
+export const BaseUrl = "https://api.jake21.students.nomoredomainssbs.ru";
