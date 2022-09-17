@@ -1,4 +1,4 @@
-const { celebrate, Joi, errors } = require("celebrate");
+const { celebrate, Joi } = require("celebrate");
 const validator = require("validator");
 
 const validateURL = (value, helpers) => {
@@ -47,14 +47,9 @@ const validateCardBody = celebrate({
   }),
 });
 
-const validateId = celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
-  }),
-});
 const validateCardId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().alphanum().length(24),
+    cardId: Joi.string().alphanum().length(24).hex(),
   }),
 });
 
@@ -95,7 +90,6 @@ const validateProfile = celebrate({
 });
 
 module.exports = {
-  validateId,
   validateCardId,
   validateCardBody,
   validateUserBody,

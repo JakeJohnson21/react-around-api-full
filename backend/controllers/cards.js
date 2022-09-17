@@ -2,9 +2,7 @@ const Card = require("../models/card");
 const {
   NotFoundError, // 404
   BadRequestError, // 400
-  // ConflictError, // 409
   ForbiddenError, // 403
-  //  UnauthorizedError, // 401
 } = require("../errors/errors");
 
 const getCards = (req, res, next) =>
@@ -25,8 +23,6 @@ const getCardById = (req, res, next) =>
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
-  // console.log("owner55: ", owner);
-  // console.log("req.body 55 : ", req.body);
   Card.create({ name, link, owner })
     .then((card) => res.status(201).send({ data: card }))
     .catch((err) => {
@@ -44,9 +40,7 @@ const createCard = (req, res, next) => {
 };
 
 const updateLike = (req, res, next, method) => {
-  // console.log("req.params for likes: ", req.params);
   const { cardId } = req.params;
-  // console.log("cardId in likes: ", cardId);
   Card.findByIdAndUpdate(
     cardId,
     { [method]: { likes: req.user._id } },

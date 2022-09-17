@@ -2,8 +2,6 @@ const router = require("express").Router();
 const {
   validateCardBody,
   validateAuthentication,
-  validateOwner,
-  validateId,
   validateCardId,
 } = require("../middlewares/validation");
 const {

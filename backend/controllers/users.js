@@ -5,7 +5,8 @@ const { JWT_SECRET } = require("../utils/config");
 const {
   NotFoundError, // 404
   BadRequestError, // 400
-  ConflictError, // 409
+  ConflictError,
+  UnauthorizedError, // 409
 } = require("../errors/errors");
 require("dotenv").config();
 
@@ -41,7 +42,12 @@ const login = (req, res, next) => {
       });
       res.send({ data: user.toJSON(), token });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === "UnauthorizedError") {
+        next(new UnauthorizedError("Incorrect email or password"));
+      }
+      next(err);
+    });
 };
 
 const createUser = (req, res, next) => {
