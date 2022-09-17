@@ -45,12 +45,6 @@ const login = (req, res, next) => {
     .catch(() => {
       next(new UnauthorizedError("Incorrect Email or Password"));
     });
-  // .catch((err) => {
-  //   if (err.name === "UnauthorizedError") {
-  //     next(new UnauthorizedError("Incorrect email or password"));
-  //   }
-  //   next(err);
-  // });
 };
 
 const createUser = (req, res, next) => {
