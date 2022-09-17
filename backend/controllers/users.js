@@ -42,13 +42,12 @@ const login = (req, res, next) => {
       });
       res.send({ data: user.toJSON(), token });
     })
-    .catch(next);
-  // .catch((err) => {
-  //   if (err.name === "UnauthorizedError") {
-  //     next(new UnauthorizedError("Incorrect email or password"));
-  //   }
-  //   next(err);
-  // });
+    .catch((err) => {
+      if (err.name === "UnauthorizedError") {
+        next(new UnauthorizedError("Incorrect email or password"));
+      }
+      next(err);
+    });
 };
 
 const createUser = (req, res, next) => {
